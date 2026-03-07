@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --safetrax-navy: #0f172a;
+  --safetrax-teal: #0d9488;
+  --safetrax-amber: #f59e0b;
+  --safetrax-mint: #99f6e4;
+  --risk-low: #22c55e;
+  --risk-mid: #eab308;
+  --risk-high: #f97316;
+  --risk-max: #ef4444;
+  /* Safe area for notched phones (iOS/Android) */
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  @apply bg-safetrax-navy text-slate-100 antialiased;
+  padding-left: var(--sal);
+  padding-right: var(--sar);
+}
+
+/* Safe area padding for fixed nav */
+.safe-area-top {
+  padding-top: var(--sat);
+}
+.safe-area-bottom {
+  padding-bottom: var(--sab);
+}
+.safe-area-padding main.pb-nav {
+  padding-bottom: calc(72px + var(--sab));
+}
+
+/* Mobile: content above bottom nav */
+@media (min-width: 768px) {
+  .safe-area-padding main.pb-nav {
+    padding-bottom: 0;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply rounded-xl bg-safetrax-teal px-5 py-3 font-medium text-white transition active:scale-[0.98] hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-safetrax-teal focus:ring-offset-2 focus:ring-offset-safetrax-navy;
+    min-height: 44px;
+  }
+  .btn-secondary {
+    @apply rounded-xl border border-slate-500 bg-slate-800/50 px-5 py-3 font-medium text-slate-200 transition active:scale-[0.98] hover:border-safetrax-teal hover:bg-slate-700/50 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:ring-offset-safetrax-navy;
+    min-height: 44px;
+  }
+  .input-field {
+    @apply w-full rounded-xl border border-slate-600 bg-slate-800/50 px-4 py-3 text-slate-100 placeholder-slate-500 focus:border-safetrax-teal focus:outline-none focus:ring-1 focus:ring-safetrax-teal;
+    min-height: 44px;
+    font-size: 16px; /* avoids iOS zoom on focus */
+  }
+  .card {
+    @apply rounded-xl border border-slate-700/50 bg-slate-800/30 shadow-xl backdrop-blur;
+  }
+  .risk-badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+  .risk-0-3 { @apply bg-green-500/20 text-green-300; }
+  .risk-4-6 { @apply bg-amber-500/20 text-amber-300; }
+  .risk-7-9 { @apply bg-orange-500/20 text-orange-300; }
+  .risk-10 { @apply bg-emerald-500/20 text-emerald-300; }
+}
+
+/* Touch-friendly: buttons and nav already use min-height 44px */
